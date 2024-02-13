@@ -79,10 +79,10 @@ What is the name of the magical flower?
 ## Docker
 
 El archivo Dockerfile que forma parte del repositorio permite crear una imagen y poder ejecutar la solución en un contenedor Docker
-Se levantó el servidor en GCP CloudRun, [ir al docs para probar](https://ragllm-k3d3noyllq-uc.a.run.app/docs) <br>
-URL Servidor GCP: https://ragllm-k3d3noyllq-uc.a.run.app
+Se levantó el servidor en GCP CloudRun, <a href="https://ragllm-k3d3noyllq-uc.a.run.app/docs" target="_blank">ir al docs para probar</a> <br>
+URL Servidor GCP: <a href="https://ragllm-k3d3noyllq-uc.a.run.app/" target="_blank">https://ragllm-k3d3noyllq-uc.a.run.app</a>
 
 ## Postman
 
 Usar la collección en Postman <br>
-https://www.postman.com/techmkt/workspace/danielv/collection/12610018-e9b5e796-9e89-4de2-a328-05f538a8366a?action=share&creator=12610018
+<a href="https://www.postman.com/techmkt/workspace/danielv/collection/12610018-e9b5e796-9e89-4de2-a328-05f538a8366a?action=share&creator=12610018" target="_blank">https://www.postman.com/techmkt/workspace/danielv/collection/12610018-e9b5e796-9e89-4de2-a328-05f538a8366a?action=share&creator=12610018</a>
