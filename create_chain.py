@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 #cargo las variables de entorno, OPENAI_API_KEY
 load_dotenv()
 
+#funcion que crea l base de datos vectorial y la cadena en lenguaje LCEL
 def CreateChain():
     embeddings = OpenAIEmbeddings()
 
@@ -30,8 +31,8 @@ def CreateChain():
         #divido el texto en fragmentos de 256 caracteres y creo documentos
         text_splitter = RecursiveCharacterTextSplitter(
             separators=["\n\n", "\n"],
-            chunk_size = 256,
-            chunk_overlap  = 20
+            chunk_size = 300,
+            chunk_overlap  = 30
         )
         texts = text_splitter.create_documents([raw_text])
 
@@ -44,41 +45,30 @@ def CreateChain():
         vectorstore = FAISS.load_local("./db", embeddings)
 
     #genero el retriever que usará el modelo para buscar las preguntas en la base de datos por similitud
-    #retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k":4})
     retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k":1})
 
     #creo el template con las instrucciones y las variables
-    template = """
-    <Paso1>
-    Buscar la pregunta: {question} en la historia de esta sesión, considerando unicamente las preguntas que que se hicieron en el mismo idioma del input.
-    {history}
-    </Paso1>
-
-    <Paso2>
-    Si encontró la pregunta en el mismo idioma. Escribir solo la respuesta. Ir directo a RESPUESTA.
-    Sino encontrá la pregunta seguir con el siguiente paso.
-    </Paso2>
-
-    <Paso3>
-    Usar únicamente el siguiente contexto para responder.
-    {context}
-    Instrucciones:
-    - Responder siempre en el mismo idioma de la pregunta.
+    template = """Usa el siguiente contexto para responder las preguntas.
+    Pensemos paso a paso siguiendo las siguientes Instrucciones:
+    - Se debe responder en el mismo idioma de la pregunta.
     - Agrega un emoji que resuma la respuesta.
-    - Responder en tercera persona.
-    - Responder en una sola oración.
-    </Paso3>
+    - La respuesta debe estar en 3ra persona.
+    - Si en la pregunta se menciona a una persona, el nombre también debe estar en la respuesta.
+    - Responer siempre en una sola oración.
+
+    {context}
 
     Pregunta: {question}
-    RESPUESTA:
     """
-
-    prompt      = ChatPromptTemplate.from_template(template)
-    context     = itemgetter("question") | retriever
-    first_step  = RunnablePassthrough.assign(context=context)
-    model       = ChatOpenAI()
+    prompt = ChatPromptTemplate.from_template(template)
+    model = ChatOpenAI(temperature=0)
 
     #creao la cadena en lengaje LCEL
-    chain = first_step | prompt | model | StrOutputParser()
+    chain = (
+        {"context": retriever, "question": RunnablePassthrough()}
+        | prompt
+        | model
+        | StrOutputParser()
+    )
 
     return chain

@@ -10,12 +10,11 @@ Se requiere desarrollar una solucion simple de tipo RAG (retrieved augmented gen
 * Se utiliza LangChain como framework LLM
 * Se utiliza OpenAI como modelo de embedding y chat
 * Se utiliza FAISS como base de datos vectorial
-* Se utiliza SQLite para almacenar la historia de chat de los usuarios
 
 ## Embeddings
 
 * El documento proporcionado en formato word se convirtió a PDF para tratarlo en LangChain
-* Parámetros: *chuncks = 256*, *chunk_overlap = 20*
+* Parámetros: *chuncks = 300*, *chunk_overlap = 30*
 
 ## Base de datos vectorial
 
@@ -28,28 +27,17 @@ Se requiere desarrollar una solucion simple de tipo RAG (retrieved augmented gen
 Se utiliza *prompt template* de LangChain con las instrucciones:
 
 ```
-<Paso1>
-Buscar la pregunta: {question} en la historia de esta sesión, considerando unicamente las preguntas que que se hicieron en el mismo idioma del input.
-{history}
-</Paso1>
-
-<Paso2>
-Si encontró la pregunta en el mismo idioma. Escribir solo la respuesta. Ir directo a RESPUESTA.
-Sino encontrá la pregunta seguir con el siguiente paso.
-</Paso2>
-
-<Paso3>
-Usar únicamente el siguiente contexto para responder.
-{context}
-Instrucciones:
-- Responder siempre en el mismo idioma de la pregunta.
+Usa el siguiente contexto para responder las preguntas.
+Pensemos paso a paso siguiendo las siguientes Instrucciones:
+- Se debe responder en el mismo idioma de la pregunta.
 - Agrega un emoji que resuma la respuesta.
-- Responder en tercera persona.
-- Responder en una sola oración.
-</Paso3>
+- La respuesta debe estar en 3ra persona.
+- Si en la pregunta se menciona a una persona, el nombre también debe estar en la respuesta.
+- Responer siempre en una sola oración.
+
+{context}
 
 Pregunta: {question}
-RESPUESTA:
 ```
 
 ## Ejecución en entorno local
@@ -92,3 +80,8 @@ What is the name of the magical flower?
 
 El archivo Dockerfile que forma parte del repositorio permite crear una imagen y poder ejecutar la solución en un contenedor Docker
 
+## Postman
+
+Usar la collección en Postman
+
+[Ir a Postman con la colección RAG con LLM](https://www.postman.com/techmkt/workspace/danielv/collection/12610018-e9b5e796-9e89-4de2-a328-05f538a8366a?action=share&creator=12610018)
