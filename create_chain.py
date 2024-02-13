@@ -31,8 +31,8 @@ def CreateChain():
         #divido el texto en fragmentos de 256 caracteres y creo documentos
         text_splitter = RecursiveCharacterTextSplitter(
             separators=["\n\n", "\n"],
-            chunk_size = 300,
-            chunk_overlap  = 30
+            chunk_size = 256,
+            chunk_overlap  = 20
         )
         texts = text_splitter.create_documents([raw_text])
 

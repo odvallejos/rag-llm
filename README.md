@@ -14,7 +14,7 @@ Se requiere desarrollar una solucion simple de tipo RAG (retrieved augmented gen
 ## Embeddings
 
 * El documento proporcionado en formato word se convirtió a PDF para tratarlo en LangChain
-* Parámetros: *chuncks = 300*, *chunk_overlap = 30*
+* Parámetros: *chuncks = 256*, *chunk_overlap = 20*
 
 ## Base de datos vectorial
 
@@ -33,7 +33,7 @@ Pensemos paso a paso siguiendo las siguientes Instrucciones:
 - Agrega un emoji que resuma la respuesta.
 - La respuesta debe estar en 3ra persona.
 - Si en la pregunta se menciona a una persona, el nombre también debe estar en la respuesta.
-- Responer siempre en una sola oración.
+- Responder siempre en una sola oración.
 
 {context}
 
@@ -79,9 +79,10 @@ What is the name of the magical flower?
 ## Docker
 
 El archivo Dockerfile que forma parte del repositorio permite crear una imagen y poder ejecutar la solución en un contenedor Docker
+Se levantó el servidor en GCP CloudRun, [ir al docs para probar](https://ragllm-k3d3noyllq-uc.a.run.app/docs) <br>
+URL Servidor GCP: https://ragllm-k3d3noyllq-uc.a.run.app
 
 ## Postman
 
-Usar la collección en Postman
-
-[Ir a Postman con la colección RAG con LLM](https://www.postman.com/techmkt/workspace/danielv/collection/12610018-e9b5e796-9e89-4de2-a328-05f538a8366a?action=share&creator=12610018)
+Usar la collección en Postman <br>
+https://www.postman.com/techmkt/workspace/danielv/collection/12610018-e9b5e796-9e89-4de2-a328-05f538a8366a?action=share&creator=12610018
