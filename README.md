@@ -15,7 +15,7 @@ Se requiere desarrollar una solucion simple de tipo RAG (retrieved augmented gen
 ## Embeddings
 
 * El documento proporcionado en formato word se convirtió a PDF para tratarlo en LangChain
-* Parámetros: *chuncks = 300*, *chunk_overlap = 30* y *length_function = len*
+* Parámetros: *chuncks = 256*, *chunk_overlap = 20*
 
 ## Base de datos vectorial
 
