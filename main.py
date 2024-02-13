@@ -49,7 +49,8 @@ else:
     vectorstore = FAISS.load_local("./db", embeddings)
 
 #genero el retriever que usará el modelo para buscar las preguntas en la base de datos por similitud
-retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k":4})
+#retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k":4})
+retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k":1})
 
 #creo el template con las instrucciones y las variables
 template = """
